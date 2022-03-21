@@ -1,6 +1,6 @@
 import { Link, useLoaderData } from "remix";
-import { getModeColor } from "~/utils";
 import type { LoaderFunction } from "remix";
+import { courses } from "~/courses";
 
 export const loader: LoaderFunction = ({ request }) => {
   const url = new URL(request.url);
@@ -10,14 +10,14 @@ export const loader: LoaderFunction = ({ request }) => {
 
 interface ITrack {
   cid: number;
-  title: string;
+  name: string;
 }
-const tracks: ITrack[] = [
-  {
-    cid: 0,
-    title: "Peach Circuit",
-  },
-];
+const tracks: ITrack[] = courses
+  .map((course, idx) => [
+    { cid: idx * 2, name: course },
+    // { cid: idx * 2 + 1, name: course },
+  ])
+  .flat();
 
 export default function PickTrack() {
   const { mode } = useLoaderData();
@@ -36,11 +36,13 @@ export default function PickTrack() {
                 className={`relative`}
               >
                 <h3 className="absolute transform -translate-x-1/2 -translate-y-1/2 bg-black-700 top-2 left-1/2 bg-opacity-20">
-                  {track.title}
+                  {track.name}
                 </h3>
                 <img
-                  src={`/${track.cid}.png`}
-                  alt={`thumbnail for ${track.title}`}
+                  src={`/images/crs${track.cid / 2 + 1}.png`}
+                  alt={`thumbnail for ${track.name}`}
+                  height="80px"
+                  width="120px"
                 />
               </a>
             );

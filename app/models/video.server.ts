@@ -17,7 +17,9 @@ export function getVideoListItems({
   cid: number;
   modeName: Mode;
 }) {
+  console.log(`modeName`, modeName)
   const modeId = modeNameToModeId[modeName];
+  console.log(`modeId`, modeId)
   return prisma.mkscvids.findMany({
     where: { cid: Number(cid), mode: modeId },
     // select: { cid: true, link: true, time: true },

@@ -16,7 +16,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const cid = url.searchParams.get("cid");
   const mode = url.searchParams.get("mode");
-  const mkscvids = await getVideoListItems({ cid, mode });
+  const mkscvids = await getVideoListItems({ cid, modeName: mode });
   return json<LoaderData>({ mkscvids, cid, mode });
 };
 
@@ -87,7 +87,7 @@ export default function NotesPage() {
                       {mkscvid.player}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-white">
-                      <a href={mkscvid.link}>URL</a>
+                      <a href={`https://youtu.be/${mkscvid.link}`}>URL</a>
                     </td>
                   </tr>
                 );
