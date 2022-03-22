@@ -44,7 +44,7 @@ export default function NotesPage() {
   return (
     <div className="flex flex-col h-full min-h-screen p-12">
       <header className="fixed top-0 left-0 flex justify-end w-full p-2">
-        <h1 className="p-2 text-xl font-bold border-2 border-black rounded hover:bg-gray-200">
+        <h1 className="p-2 text-xl font-bold border-2 border-black rounded-lg hover:bg-gray-200">
           <Link to="/"> Home</Link>
         </h1>
       </header>
@@ -68,7 +68,7 @@ export default function NotesPage() {
       <div className="flex gap-4 p-6 mx-auto">
         <a
           href={`/videos/?cid=${Number(data.cid) - 1}&mode=${data.mode}`}
-          className={`border-2  px-4 py-2 ${
+          className={`rounded border-2 px-4 py-2 ${
             data.cid % 2 === 0
               ? "pointer-events-none border-gray-500 underline"
               : "hover:border-gray-400"
@@ -78,7 +78,7 @@ export default function NotesPage() {
         </a>
         <a
           href={`/videos/?cid=${Number(data.cid) + 1}&mode=${data.mode}`}
-          className={`border-2  px-4 py-2 ${
+          className={`rounded border-2 px-4 py-2 ${
             data.cid % 2 === 1
               ? "pointer-events-none border-gray-500 underline "
               : "hover:border-gray-400"
