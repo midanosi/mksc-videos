@@ -36,25 +36,31 @@ const modes: ModeMenuItem[] = [
 
 export default function Index() {
   return (
-    <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
-      <h1>MKSC Videos</h1>
-      <div className="px-4 py-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex flex-wrap justify-center gap-8 mt-6">
-          {modes.map((mode) => {
-            const modeColor = getModeColor(mode.id);
-            return (
-              <a
-                key={mode.id}
-                href={`/picktrack?mode=${mode.id}`}
-                className={`flex h-16 w-32 justify-center p-1 grayscale transition hover:grayscale-0 focus:grayscale-0`}
+    <main className="relative min-h-screen p-12 bg-white">
+      <h1 className="mb-12 text-2xl">MKSC Videos</h1>
+      <div className="inline-grid grid-cols-2 grid-rows-2 gap-4 col">
+        {modes.map((mode) => {
+          const modeColor = getModeColor(mode.id);
+          return (
+            <div
+              key={mode.id}
+              className="w-56 px-4 py-2 bg-gray-100 border-2 rounded-lg"
+            >
+              <h3
+                style={{ color: modeColor }}
+                className={`text-3xl font-bold transition hover:opacity-60`}
               >
-                <h3 style={{ color: modeColor }}>{mode.title}</h3>
-                <span>{mode.desc}</span>
-                {mode.desc2 ? <span>{mode.desc2}</span> : null}
-              </a>
-            );
-          })}
-        </div>
+                <a href={`/picktrack?mode=${mode.id}`}>{mode.title}</a>
+              </h3>
+              <ul className="ml-4 list-disc">
+                <li className="text-sm text-opacity-60">{mode.desc}</li>
+                {mode.desc2 ? (
+                  <li className="text-sm text-opacity-60">{mode.desc2}</li>
+                ) : null}
+              </ul>
+            </div>
+          );
+        })}
       </div>
     </main>
   );

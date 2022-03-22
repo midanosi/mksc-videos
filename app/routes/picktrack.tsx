@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from "remix";
 import type { LoaderFunction } from "remix";
 import { courses } from "~/courses";
+import { getModeColor } from "~/utils";
 
 export const loader: LoaderFunction = ({ request }) => {
   const url = new URL(request.url);
@@ -19,34 +20,56 @@ const tracks: ITrack[] = courses
   ])
   .flat();
 
+function stripRetroFromName(name: string) {
+  return name.replace("Retro ", "");
+}
+
+const TrackCell = ({ track, mode }) => {
+  return (
+    <a
+      key={track.cid}
+      href={`/videos/?cid=${track.cid}&mode=${mode}`}
+      className="px-3 py-2 transition rounded hover:bg-gray-200"
+    >
+      <h3
+        className="w-full text-center whitespace-nowrap"
+        style={{ width: "120%", marginLeft: "-10%" }}
+      >
+        {stripRetroFromName(track.name)}
+      </h3>
+      <img
+        src={`/images/crs${track.cid / 2 + 1}.png`}
+        alt={`thumbnail for ${track.name}`}
+        className="w-full h-20 m-0"
+      />
+    </a>
+  );
+};
+
 export default function PickTrack() {
   const { mode } = useLoaderData();
 
   return (
-    <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
-      <h1>Pick Track</h1>
-      <h3>Mode: {mode}</h3>
-      <div className="px-4 py-2 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="grid grid-cols-5 mt-6 gap-y-2">
-          {tracks.map((track) => {
-            return (
-              <a
-                key={track.cid}
-                href={`/videos/?cid=${track.cid}&mode=${mode}`}
-                className={`relative`}
-              >
-                <h3 className="absolute transform -translate-x-1/2 -translate-y-1/2 bg-black-700 top-2 left-1/2 bg-opacity-20">
-                  {track.name}
-                </h3>
-                <img
-                  src={`/images/crs${track.cid / 2 + 1}.png`}
-                  alt={`thumbnail for ${track.name}`}
-                  height="80px"
-                  width="120px"
-                />
-              </a>
-            );
-          })}
+    <main className="relative min-h-screen p-12 bg-white">
+      <h1 className="mb-6 text-2xl">Pick Track</h1>
+      <h3
+        style={{ color: getModeColor(mode) }}
+        className={`text-3xl font-bold transition hover:opacity-60`}
+      >
+        {mode}
+      </h3>
+      <div className="px-4 py-2 mx-auto">
+        <h2 className="text-xl font-extrabold mt-">GBA</h2>
+        <div className="grid grid-cols-5 mb-12 gap-y-6 gap-x-2">
+          {tracks.slice(0, 20).map((track) => (
+            <TrackCell key={track.cid} track={track} mode={mode} />
+          ))}
+        </div>
+        <h2 className="text-xl font-extrabold">Retro</h2>
+        <div className="grid grid-cols-5 mb-12 gap-y-4">
+          {tracks.slice(20, 40).map((track) => (
+            <TrackCell key={track.cid} track={track} mode={mode} />
+          ))}
         </div>
       </div>
     </main>
