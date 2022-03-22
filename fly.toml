@@ -1,4 +1,4 @@
-app = "mksc-videos-f9d3"
+app = "mksc-videos"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = [ ]
