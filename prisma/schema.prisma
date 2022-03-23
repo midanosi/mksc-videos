@@ -28,9 +28,9 @@ datasource db {
 model mkscvids {
   cid    Int
   time   Decimal
-  link   String @unique
+  link   String  @unique
   mode   Int
-  player String
+  player String?
   // course Course @relation(fields: [cid], references: [cid])
 }
 
@@ -40,7 +40,7 @@ model mkscytnames {
 }
 
 // model Course {
-//   cid Int @id 
+//   cid Int @id
 //   name String
 //   isCourse Boolean
 //   records mkscvids[]
