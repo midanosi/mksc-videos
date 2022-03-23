@@ -38,6 +38,13 @@ const getCourseImgIndex = (cid: number) => {
   return imageIndex;
 };
 
+const padTime = (time: number) => {
+  const timeString = String(time);
+  const decimals = timeString.split(".")[1];
+  if (decimals.length === 1) return timeString + "0";
+  return timeString;
+};
+
 export default function NotesPage() {
   const data = useLoaderData() as LoaderData;
 
@@ -121,7 +128,7 @@ export default function NotesPage() {
                     className="bg-white border-b dark:border-gray-700 dark:bg-gray-800"
                   >
                     <td className="px-6 py-2 font-medium text-gray-900 text-md whitespace-nowrap dark:text-white">
-                      {mkscvid.time}
+                      {padTime(mkscvid.time)}
                     </td>
                     <td className="px-6 py-2 text-sm text-gray-500 whitespace-nowrap dark:text-white">
                       {mkscvid.player}
