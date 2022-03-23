@@ -18,7 +18,13 @@ export async function scrapeYTAndAddNames() {
   //   where: { player: undefined },
   // });
   const recordsWithoutName = await prisma.mkscvids.findMany({
-    where: { player: '' },
+    where: {
+      OR: [
+        { player: '' },
+        { player: null },
+      ]
+    }
+    
   })
   console.log(`recordsWithoutName.length`, recordsWithoutName.length)
   let i=0
