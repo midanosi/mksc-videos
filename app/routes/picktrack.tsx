@@ -66,7 +66,7 @@ export default function PickTrack() {
           ))}
         </div>
         <h2 className="text-xl font-extrabold">Retro</h2>
-        <div className="grid grid-cols-5 mb-12 gap-y-4">
+        <div className="grid grid-cols-5 mx-auto mb-12 w-fit justify-items-center gap-y-6 gap-x-2">
           {tracks.slice(20, 40).map((track) => (
             <TrackCell key={track.cid} track={track} mode={mode} />
           ))}
